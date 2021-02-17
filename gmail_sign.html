@@ -1,0 +1,52 @@
+<html>
+
+    <head>
+        <title>Google Auth Demo</title>
+            <meta name ="google-signin-client_id"
+                  content ="577842422071-svgm8a7efehqr7q3mtglkoi2s09oacvr.apps.googleusercontent.com">
+    <script src ="https://apis.google.com/js/platform.js"
+            async defer></script>
+    </head>
+    <body>
+        <h1>Arvind's Demo Page</h1>
+        <div class="g-signin2" data-onsuccess="onSignIn">
+        </div>
+        <div id="content"></div>
+        <button disabled onclick="signOut()" id="button1"> Sign Out</button>
+    
+    </body>
+<script>
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile()
+        console.log('User is ' + JSON.stringify(profile));
+        var element = document.querySelector('#content')
+        element.innerText = profile.getName();
+        var image = document.createElement('img');
+        image.setAttribute('src', profile.getImageUrl())
+        element.append(image);
+        var btn = document.getElementById("button1");
+        btn.disabled = false;
+    }
+    function signOut() {
+     
+        
+       //Using Gapi library for sign out 
+        gapi.auth2.getAuthInstance().signOut().then(function() {
+            console.log('user signed out')
+            clearcontent('content','button1')
+
+            
+        })
+    }
+    function clearcontent(elementID,b1)
+    {
+       
+        document.getElementById(elementID).innerHTML = ""; 
+         document.getElementById(b1).innerHTML = ""; 
+//        var myobj = document.getElementById(b1);
+//        myobj.remove();
+        
+    }
+    </script>
+
+</html>
